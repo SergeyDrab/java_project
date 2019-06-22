@@ -13,12 +13,24 @@ public class GroupCreationTests {
   public void setUp() throws Exception {
     wd = new FirefoxDriver();
     wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    login("user", "admin", By.xpath("//html"), "pass", "secret", By.id("LoginForm"), By.xpath("//input[@value='Login']"));
+    login("admin", "secret");
+  }
+
+  private void login(String username, String password) {
+    wd.get("http://localhost/addressbook/");
+    wd.findElement(By.name("user")).click();
+    wd.findElement(By.name("user")).click();
+    wd.findElement(By.name("user")).clear();
+    wd.findElement(By.name("user")).sendKeys(username);
+    wd.findElement(By.id("LoginForm")).click();
+    wd.findElement(By.name("pass")).click();
+    wd.findElement(By.name("pass")).clear();
+    wd.findElement(By.name("pass")).sendKeys(password);
+    wd.findElement(By.xpath("//input[@value='Login']")).click();
   }
 
   @Test
   public void testGroupCreation() throws Exception {
-    wd.get("http://localhost/addressbook/group.php");
     gotoGroupPage("groups");
     initGroupCreation();
     fillGroupForm(new GroupData("test1", "test2", "test3"));
