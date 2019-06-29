@@ -16,7 +16,7 @@ public class AddContactTests {
     login("admin", "secret");
   }
 
-  private void login(String username, String password) {
+  public void login(String username, String password) {
     wd.get("http://localhost/addressbook/");
     wd.findElement(By.name("user")).click();
     wd.findElement(By.name("user")).click();
@@ -36,11 +36,11 @@ public class AddContactTests {
     submitAddContact();
   }
 
-  private void submitAddContact() {
+  public void submitAddContact() {
     wd.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
   }
 
-  private void fillAddContactForm(AddContactData addContactData) {
+  public void fillAddContactForm(AddContactData addContactData) {
     wd.findElement(By.name("firstname")).click();
     wd.findElement(By.name("firstname")).clear();
     wd.findElement(By.name("firstname")).sendKeys(addContactData.getFirstname());
@@ -119,19 +119,10 @@ public class AddContactTests {
     wd.findElement(By.name("notes")).sendKeys(addContactData.getNotes());
   }
 
-  private void gotoAddNewPage() {
-    wd.findElement(By.linkText("add new")).click();
+  public void gotoAddNewPage() {
+    wd.get("http://localhost/addressbook/edit.php");
   }
 
-  private void login(String user, String admin, By xpath, String pass, String password, By loginForm, By xpath2) {
-    wd.findElement(By.name(user)).clear();
-    wd.findElement(By.name(user)).sendKeys(admin);
-    wd.findElement(xpath).click();
-    wd.findElement(By.name(pass)).clear();
-    wd.findElement(By.name(pass)).sendKeys(password);
-    wd.findElement(loginForm).click();
-    wd.findElement(xpath2).click();
-  }
 
   @AfterMethod(alwaysRun = true)
   public void tearDown() throws Exception {
@@ -139,7 +130,7 @@ public class AddContactTests {
 
   }
 
-  private boolean isElementPresent(By by) {
+  public boolean isElementPresent(By by) {
     try {
       wd.findElement(by);
       return true;
@@ -148,7 +139,7 @@ public class AddContactTests {
     }
   }
 
-  private boolean isAlertPresent() {
+  public boolean isAlertPresent() {
     try {
       wd.switchTo().alert();
       return true;
